@@ -73,7 +73,7 @@
 #include "ciaaPOSIX_string.h"   /* <= string header */
 #include "ciaak.h"              /* <= ciaa kernel header */
 #include "ciaaMulticore.h"      /* <= multicore lib header */
-#include "ciaa_multicore.h" /* <= own header */
+#include "ciaa_multicore.h"     /* <= own header */
 
 /*==================[macros and definitions]=================================*/
 
@@ -88,6 +88,8 @@
  * Device path /dev/dio/out/0
  */
 static int32_t fd_out;
+
+static int32_t fd_uart;
 
 /*==================[external data definition]===============================*/
 
@@ -167,6 +169,8 @@ TASK(InitTaskMaster)
    /* open CIAA digital outputs */
    fd_out = ciaaPOSIX_open("/dev/dio/out/0", ciaaPOSIX_O_RDWR);
 
+   fd_uart = ciaaPOSIX_open("/dev/serial/uart/1", ciaaPOSIX_O_RDWR);
+
    /* terminate task */
    TerminateTask();
 }
@@ -187,6 +191,8 @@ TASK(PeriodicTaskMaster)
    outputs ^= 0x20;
    /* write outputs */
    ciaaPOSIX_write(fd_out, &outputs, 1);
+
+   ciaaPOSIX_write(fd_uart, "test\r\n", 6);
 
    /* terminate task */
    TerminateTask();

@@ -164,7 +164,7 @@ OSEK OSEK {
       AUTOSTART = TRUE {
          APPMODE = AppMode1;
          ALARMTIME = 0;
-         CYCLETIME = 300;
+         CYCLETIME = 100;
       }
       CORE = 0;
    }
@@ -200,4 +200,11 @@ OSEK OSEK {
       INTERRUPT = M4CORE;
       CORE = 1;
    }
+
+   ISR UART2_IRQHandler {
+      INTERRUPT = UART2;
+      CATEGORY = 2;
+      PRIORITY = 0;
+      CORE = 0;
+   };
 };

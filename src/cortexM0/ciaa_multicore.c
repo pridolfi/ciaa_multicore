@@ -167,7 +167,7 @@ TASK(InitTaskSlave)
    /* open CIAA digital outputs */
    fd_out = ciaaPOSIX_open("/dev/dio/out/0", ciaaPOSIX_O_RDWR);
 
-   SetRelAlarm(ActivatePeriodicTaskSlave, 0, 500);
+   SetRelAlarm(ActivatePeriodicTaskSlave, 0, 250);
 
    /* terminate task */
    TerminateTask();
@@ -191,7 +191,7 @@ TASK(PeriodicTaskSlave)
    ciaaPOSIX_write(fd_out, &outputs, 1);
 
    /* turn off in 100ms */
-   SetRelAlarm(ActivateLEDOffSlave, 100, 0);
+   SetRelAlarm(ActivateLEDOffSlave, 50, 0);
 
    /* Activate a Task in the remote core */
    ActivateTask(PeriodicTaskMaster);
